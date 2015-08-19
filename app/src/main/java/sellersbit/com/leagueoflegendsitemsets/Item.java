@@ -36,6 +36,12 @@ public class Item {
         this.depth = depth;
     }
 
+    public Item(int itemId, String name, String description) {
+        this.itemId = itemId;
+        this.name = name;
+        this.description = description;
+    }
+
     public int getItemId() {
         return itemId;
     }
