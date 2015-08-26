@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filterOptions">
+        <item>All</item>
+        <item>Boots</item>
+        <item>Health</item>
+        <item>Mana</item>
+    </string-array>
+
+</resources>
