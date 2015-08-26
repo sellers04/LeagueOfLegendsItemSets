@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by sellersk on 8/26/2015.
@@ -51,7 +52,7 @@ public class ItemGridAdapter extends BaseAdapter implements Filterable {
         }
         Item item = items.get(position);
         //((TextView)convertView.findViewById(R.id.list_item_name)).setText(String.valueOf(item.getItemId()));
-        ((ImageView)convertView.findViewById(R.id.list_item_thumbnail)).setImageDrawable(item.getThumbnail());
+        ((ImageView)convertView.findViewById(R.id.list_item_thumbnail)).setImageDrawable(item.getDrawable());
 
 
 
@@ -77,7 +78,7 @@ public class ItemGridAdapter extends BaseAdapter implements Filterable {
                 ArrayList<Item> filterList = new ArrayList<Item>();
 
                 for (Item item : itemsOriginal){
-                    if (item.getTags().contains(constraint.toString())){
+                    if (Arrays.asList(item.getTags()).contains(constraint.toString())){
                         filterList.add(item);
                     }
                 }

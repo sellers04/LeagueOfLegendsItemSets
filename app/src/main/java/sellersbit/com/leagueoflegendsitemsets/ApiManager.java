@@ -69,8 +69,8 @@ public class ApiManager {
                     Iterator<String> iterator = dataObj.keys();
                     while(iterator.hasNext()){
                         JSONObject newItemJson = dataObj.getJSONObject(iterator.next());
-                        Item newItem = new Item(newItemJson.getInt("id"), newItemJson.getString("name"), newItemJson.getString("description"));
-                        items.add(newItem);
+                        //Item newItem = new Item(newItemJson.getInt("id"), newItemJson.getString("name"), newItemJson.getString("description"));
+                        //items.add(newItem);
 
                     }
 
