@@ -2,10 +2,18 @@ package sellersbit.com.leagueoflegendsitemsets;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -14,16 +22,29 @@ public class MainActivity extends Activity {
     public static final String TAG = "MainActivity";
 
 
+    @Bind(R.id.grid_view)
+    GridView gridView;
+
+
+    ArrayList<Item> items;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
+
+
 
 
         ApiManager.getService().getItems(new Callback<ResponseItems>() {
             @Override
             public void success(ResponseItems responseItems, Response response) {
                 Log.d(TAG, "here is SUCESS! ");
+                items = responseItems.getItems();
+                setupGridView();
+
             }
 
             @Override
@@ -33,6 +54,18 @@ public class MainActivity extends Activity {
         });
 
 
+
+
+
+
+    }
+
+    private void setupGridView(){
+        items = Utils.associateItemImages(this, items);
+
+        ItemGridAdapter itemGridAdapter = new ItemGridAdapter(this, items);
+        gridView.setAdapter(itemGridAdapter);
+        gridView.setNumColumns(4);
     }
 
 

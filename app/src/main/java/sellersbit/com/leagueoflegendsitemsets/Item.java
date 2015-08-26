@@ -1,5 +1,7 @@
 package sellersbit.com.leagueoflegendsitemsets;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.Map;
 
 /**
@@ -20,6 +22,8 @@ public class Item {
     private Map<String, Integer> stats;
 
     private String imageUrl;
+
+    private Drawable thumbnail;
 
     private int depth;
 
@@ -76,5 +80,13 @@ public class Item {
 
     public int getDepth() {
         return depth;
+    }
+
+    public Drawable getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(Drawable thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

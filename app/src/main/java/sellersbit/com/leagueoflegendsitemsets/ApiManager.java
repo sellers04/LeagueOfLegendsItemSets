@@ -60,9 +60,9 @@ public class ApiManager {
         @Override
         public Object fromBody(TypedInput body, Type type) throws ConversionException {
             Log.d(TAG, "CONVERTER type = " + type.toString());
+            ArrayList<Item> items = new ArrayList<>();
             if(type == ResponseItems.class){
                 try {
-                    ArrayList<Item> items = new ArrayList<>();
                     JSONObject jsonObject = new JSONObject(fromStream(body.in()));
                     Log.d(TAG, "CONVERTER jsonArray: " + jsonObject.getJSONObject("data").getJSONObject("1029").get("name"));
                     JSONObject dataObj = jsonObject.getJSONObject("data");
@@ -85,17 +85,7 @@ public class ApiManager {
                 }
             }
 
-            String json = null;
-            try {
-                json = fromStream(body.in());
-            } catch (Exception e) {
-
-            }
-
-            Gson gson = new Gson();
-            gson.fromJson(json, Item.class);
-
-            return null;
+            return new ResponseItems(items);
         }
 
         @Override

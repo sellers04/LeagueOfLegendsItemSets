@@ -11,6 +11,11 @@
     <color name="dividerColor">#B6B6B6</color>
 
 
+    <color name="item_gold_text">#FFC400</color>
+    <color name="item_title_text">#212121</color>
+    <color name="item_description_text">#727272</color>
+
+
 
 
 </resources>

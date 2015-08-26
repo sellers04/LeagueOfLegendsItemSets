@@ -8,18 +8,12 @@ import java.util.ArrayList;
 public class ResponseItems {
 
     private ArrayList<Item> items;
-    private String rawJson;
 
-    public ResponseItems(ArrayList<Item> items, String rawJson) {
+    public ResponseItems(ArrayList<Item> items) {
         this.items = items;
-        this.rawJson = rawJson;
     }
 
     public ArrayList<Item> getItems() {
         return items;
-    }
-
-    public String getRawJson() {
-        return rawJson;
     }
 }
