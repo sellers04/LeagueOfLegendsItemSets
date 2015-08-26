@@ -2,6 +2,7 @@ package sellersbit.com.leagueoflegendsitemsets;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,7 +19,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MainActivity extends Activity {
+public class MainActivity extends  AppCompatActivity{
     public static final String TAG = "MainActivity";
 
 
@@ -32,36 +33,19 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
 
-
-
-
-        ApiManager.getService().getItems(new Callback<ResponseItems>() {
-            @Override
-            public void success(ResponseItems responseItems, Response response) {
-                Log.d(TAG, "here is SUCESS! ");
-                items = responseItems.getItems();
-                setupGridView();
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.d(TAG, "here is failure! ");
-            }
-        });
-
-
-
-
-
-
+        setupGridView();
     }
 
     private void setupGridView(){
-        items = Utils.associateItemImages(this, items);
+        try {
+            items = Utils.getLocalItems(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "Result: " + items.size());
 
         ItemGridAdapter itemGridAdapter = new ItemGridAdapter(this, items);
         gridView.setAdapter(itemGridAdapter);
@@ -91,3 +75,19 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+
+/*        ApiManager.getService().getItems(new Callback<ResponseItems>() {
+            @Override
+            public void success(ResponseItems responseItems, Response response) {
+                Log.d(TAG, "here is SUCESS! ");
+                items = responseItems.getItems();
+
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d(TAG, "here is failure! ");
+            }
+        });*/

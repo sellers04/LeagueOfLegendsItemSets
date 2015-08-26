@@ -46,7 +46,7 @@ public class ItemGridAdapter extends BaseAdapter {
         }
         Item item = items.get(position);
         //((TextView)convertView.findViewById(R.id.list_item_name)).setText(String.valueOf(item.getItemId()));
-        ((ImageView)convertView.findViewById(R.id.list_item_thumbnail)).setImageDrawable(item.getThumbnail());
+        ((ImageView)convertView.findViewById(R.id.list_item_thumbnail)).setImageDrawable(item.getDrawable());
 
 
 

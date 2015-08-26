@@ -1,6 +1,7 @@
 package sellersbit.com.leagueoflegendsitemsets;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.util.Map;
 
@@ -8,85 +9,86 @@ import java.util.Map;
  * Created by sellersk on 8/19/2015.
  */
 public class Item {
+    public static final String TAG = "Item";
+
+    private int itemId;
+    private String name;
+    private String group;
+    private String description;
+    private String plaintext;
+    private int[] into;
+    private Drawable drawable;
+    private int baseGold;
+    private int totalGold;
+    private int sellGold;
+    private boolean purchasable;
 
     private String[] tags;
 
-    private int itemId;
-    private int[] buildsInto;
-    private int[] buildsFrom;
-
-    private String sanitizedDescription;
-    private String description;
-    private String name;
-
-    private Map<String, Integer> stats;
-
-    private String imageUrl;
-
-    private Drawable thumbnail;
-
-    private int depth;
-
-    public Item(String[] tags, int id, int[] buildsInto, int[] buildsFrom, String sanitizedDescription, String description, String name, Map<String, Integer> stats, String imageUrl, int depth) {
-        this.tags = tags;
-        this.itemId = id;
-        this.buildsInto = buildsInto;
-        this.buildsFrom = buildsFrom;
-        this.sanitizedDescription = sanitizedDescription;
-        this.description = description;
-        this.name = name;
-        this.stats = stats;
-        this.imageUrl = imageUrl;
-        this.depth = depth;
-    }
-
-    public Item(int itemId, String name, String description) {
+    public Item(int itemId, String name, String group, String description, String plaintext, int[] into, Drawable drawable, int baseGold, int totalGold, int sellGold, boolean purchasable, String[] tags) {
         this.itemId = itemId;
         this.name = name;
+        this.group = group;
         this.description = description;
+        this.plaintext = plaintext;
+        this.into = into;
+        this.drawable = drawable;
+        this.baseGold = baseGold;
+        this.totalGold = totalGold;
+        this.sellGold = sellGold;
+        this.purchasable = purchasable;
+        this.tags = tags;
+
+        Log.d(TAG, "Created new item: id:" + itemId + ", name: " + name + ", group: " + group);
     }
+
+
 
     public int getItemId() {
         return itemId;
-    }
-
-    public int[] getBuildsInto() {
-        return buildsInto;
-    }
-
-    public int[] getBuildsFrom() {
-        return buildsFrom;
-    }
-
-    public String getSanitizedDescription() {
-        return sanitizedDescription;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public String getName() {
         return name;
     }
 
-    public Map<String, Integer> getStats() {
-        return stats;
+    public String getGroup() {
+        return group;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getDescription() {
+        return description;
     }
 
-    public int getDepth() {
-        return depth;
+    public String getPlaintext() {
+        return plaintext;
     }
 
-    public Drawable getThumbnail() {
-        return thumbnail;
+    public int[] getInto() {
+        return into;
     }
 
-    public void setThumbnail(Drawable thumbnail) {
-        this.thumbnail = thumbnail;
+    public Drawable getDrawable() {
+        return drawable;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public int getBaseGold() {
+        return baseGold;
+    }
+
+    public int getTotalGold() {
+        return totalGold;
+    }
+
+    public int getSellGold() {
+        return sellGold;
+    }
+
+    public boolean isPurchasable() {
+        return purchasable;
     }
 }
