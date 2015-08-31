@@ -14,8 +14,9 @@
     <color name="item_gold_text">#FFC400</color>
     <color name="item_title_text">#212121</color>
     <color name="item_description_text">#727272</color>
-
-
+    <color name="ItemSelectionFragment_background">#323232</color>
+    <color name="ItemSelectionFragment_HeaderLayout_background">#434343</color>
+    <color name="ItemGold">#ffd700</color>
 
 
 </resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_selectedItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="100dp"
+        android:background="@color/ItemSelectionFragment_HeaderLayout_background"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView_selectedItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/ItemSelectionFragment_background"/>
+
+        <TextView
+            android:id="@+id/textView_selectedItemGold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="16dp"
+            android:textColor="@color/ItemGold"
+            android:text="490g"
+            />
+
+        <TextView
+            android:id="@+id/textView_selectedItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imageView_selectedItem"
+            android:text="Item Name"
+            android:textSize="12dp"
+            android:textColor="@color/colorWhite"
+            android:layout_toLeftOf="@id/textView_selectedItemGold"
+            />
+
+        <TextView
+            android:id="@+id/textView_selectedItemDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_selectedItem"
+            android:layout_toRightOf="@id/imageView_selectedItem"
+            android:text="Example desciption..."
+            android:textColor="@color/colorWhite"
+            android:textSize="10dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_itemGrid"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/relativeLayout_selectedItem">
+
+        <ListView
+            android:id="@+id/listView_itemFilter"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"/>
+
+        <GridView
+            android:id="@+id/gridView_items"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/listView_itemFilter"/>
+
+    </RelativeLayout>
+</RelativeLayout>
