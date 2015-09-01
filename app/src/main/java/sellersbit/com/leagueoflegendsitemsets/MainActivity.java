@@ -46,11 +46,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupGridView(){
-        try {
-            items = Utils.getLocalItems(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        items = User.get().getItems(this);
+
 
 
         final ItemGridAdapter itemGridAdapter = new ItemGridAdapter(this, items);

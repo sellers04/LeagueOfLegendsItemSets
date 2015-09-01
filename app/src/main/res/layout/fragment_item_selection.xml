@@ -12,6 +12,13 @@
         android:background="@color/ItemSelectionFragment_HeaderLayout_background"
         android:gravity="center">
 
+        <TextView
+            android:id="@+id/textView_selectedItemId"
+            android:layout_width="wrap_content"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+
         <ImageView
             android:id="@+id/imageView_selectedItem"
             android:layout_width="wrap_content"
@@ -48,7 +55,8 @@
             android:layout_toRightOf="@id/imageView_selectedItem"
             android:text="Example desciption..."
             android:textColor="@color/colorWhite"
-            android:textSize="10dp"
+            android:maxHeight="50dp"
+            android:textSize="7dp"
             />
     </RelativeLayout>
 
@@ -58,9 +66,9 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/relativeLayout_selectedItem">
 
-        <ListView
+        <ExpandableListView
             android:id="@+id/listView_itemFilter"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"/>
 
         <GridView

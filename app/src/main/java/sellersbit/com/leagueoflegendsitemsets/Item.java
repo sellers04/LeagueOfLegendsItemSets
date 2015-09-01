@@ -25,7 +25,10 @@ public class Item {
 
     private String[] tags;
 
-    public Item(int itemId, String name, String group, String description, String plaintext, int[] into, Drawable drawable, int baseGold, int totalGold, int sellGold, boolean purchasable, String[] tags) {
+    private boolean enabled;
+    private boolean inStore;
+
+    public Item(int itemId, String name, String group, String description, String plaintext, int[] into, Drawable drawable, int baseGold, int totalGold, int sellGold, boolean purchasable, String[] tags, boolean inStore) {
         this.itemId = itemId;
         this.name = name;
         this.group = group;
@@ -38,7 +41,9 @@ public class Item {
         this.sellGold = sellGold;
         this.purchasable = purchasable;
         this.tags = tags;
+        this.enabled = true;
 
+        this.inStore = inStore;
         Log.d(TAG, "Created new item: id:" + itemId + ", name: " + name + ", group: " + group);
     }
 
@@ -90,5 +95,21 @@ public class Item {
 
     public boolean isPurchasable() {
         return purchasable;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isInStore() {
+        return inStore;
+    }
+
+    public void setInStore(boolean inStore) {
+        this.inStore = inStore;
     }
 }

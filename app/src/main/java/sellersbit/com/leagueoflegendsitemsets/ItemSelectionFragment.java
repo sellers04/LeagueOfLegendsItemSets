@@ -9,13 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -27,12 +27,11 @@ import butterknife.ButterKnife;
 public class ItemSelectionFragment extends Fragment {
     public static final String TAG = "ItemSelectionFragment";
 
-
     @Bind(R.id.gridView_items)
     GridView gridView;
 
     @Bind(R.id.listView_itemFilter)
-    ListView listView;
+    ExpandableListView listView;
 
     @Bind(R.id.textView_selectedItemDescription)
     TextView textView_selectedItemDescription;
@@ -46,7 +45,10 @@ public class ItemSelectionFragment extends Fragment {
     @Bind(R.id.imageView_selectedItem)
     ImageView imageView_selectedItem;
 
-    private ArrayList<Item> items;
+    @Bind(R.id.textView_selectedItemId)
+    TextView textView_selectedItemId;
+
+    private ArrayList<Item> enabledItems;
     private ArrayList<String> tags;
 
     private ItemGridAdapter itemGridAdapter;
@@ -74,22 +76,31 @@ public class ItemSelectionFragment extends Fragment {
         setupListView();
 
 
-
-
-
         return v;
     }
 
 
     private void setupGridView(){
-        items = User.get().getItems(getActivity());
+        enabledItems = User.get().getItems(getActivity());
+        Log.d(TAG, "Enabled Items: " + enabledItems.size());
+        for (Item item : enabledItems) {
+            Log.d(TAG, "Carry " + item.getName());
+        }
 
-        itemGridAdapter = new ItemGridAdapter(getActivity(), items);
+        itemGridAdapter = new ItemGridAdapter(getActivity(), enabledItems);
         gridView.setAdapter(itemGridAdapter);
         gridView.setNumColumns(4);
 
-        /*ArrayList<String> tags = Utils.getAllTags(items);
-        Log.d(TAG, "Result: " + items.size());
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Item item = (Item)gridView.getAdapter().getItem(position);
+                setSelectedItem(item);
+            }
+        });
+
+        /*ArrayList<String> tags = Utils.getAllTags(enabledItems);
+        Log.d(TAG, "Result: " + enabledItems.size());
 
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, tags); //selected item will look like a spinner set from XML
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -110,17 +121,47 @@ public class ItemSelectionFragment extends Fragment {
     }
 
     private void setupListView(){
-        tags = Utils.getAllTags(items);
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, tags); //selected item will look like a spinner set from XML
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        listView.setAdapter(arrayAdapter);
+        ArrayList<Tag> tags = Utils.getTags();
+        //final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, tags); //selected item will look like a spinner set from XML
+        //arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //listView.setAdapter(arrayAdapter);
 
+
+        ExpandableItemTagAdapter adapter = new ExpandableItemTagAdapter(getActivity(), tags, gridView);
+        listView.setAdapter(adapter);
+        Log.d(TAG, "OnItemListClick!");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String tag = (String) listView.getAdapter().getItem(position);
-                itemGridAdapter.getFilter().filter(tag);
+                Log.d(TAG, "OnItemListClick!");
             }
         });
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Log.d(TAG, "OnItemListClick!");
+                Tag tag = (Tag) listView.getExpandableListAdapter().getChild(groupPosition, childPosition);
+                itemGridAdapter.filterByTags(tag);
+                return true;
+            }
+        });
+
+    }
+
+    private void setSelectedItem(Item item){
+        imageView_selectedItem.setImageDrawable(item.getDrawable());
+        textView_selectedItem.setText(item.getName());
+        textView_selectedItemGold.setText(String.valueOf(item.getBaseGold()));
+        textView_selectedItemDescription.setText(item.getDescription());
+        textView_selectedItemId.setText(String.valueOf(item.getItemId()));
+
+        final Item savedItem = item;
+        imageView_selectedItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User.get().removeItemId(savedItem.getItemId());
+            }
+        });
+
     }
 }

@@ -33,4 +33,12 @@ public class NewItemSetActivity extends AppCompatActivity implements ItemSelecti
     public void onClearSelection() {
 
     }
+    /*//////////////////////*/
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        User.get().printFinalString();
+    }
 }

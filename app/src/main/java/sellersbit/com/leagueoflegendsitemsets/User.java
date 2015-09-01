@@ -28,12 +28,23 @@ public class User {
 
     private ArrayList<Item> items;
 
+    private String itemsToRemove = "{";
+
+    public void removeItemId(int i){
+        itemsToRemove += String.valueOf(i)+", ";
+    }
+
+    public void printFinalString(){
+        Log.d(TAG, itemsToRemove);
+    }
+
     public ArrayList<Item> getItems(Context context) {
         if(items == null)
             try {
                 items = Utils.getLocalItems(context);
             } catch (Exception e){
                 Log.e(TAG, "Exception: Utils.getLocalItems");
+                e.printStackTrace();
             }
         return items;
     }
