@@ -2,6 +2,7 @@
 <resources>
         <!--https://www.materialpalette.com/teal/blue-->
     <color name="colorPrimaryDark">#00796B</color>
+
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryLight">#B2DFDB</color>
     <color name="colorAccent">#448AFF</color>
@@ -10,13 +11,26 @@
     <color name="secondaryText">#727272</color>
     <color name="dividerColor">#B6B6B6</color>
 
+    <color name="popupMenu_background">#018F81</color>
 
     <color name="item_gold_text">#FFC400</color>
     <color name="item_title_text">#212121</color>
     <color name="item_description_text">#727272</color>
-    <color name="ItemSelectionFragment_background">#323232</color>
-    <color name="ItemSelectionFragment_HeaderLayout_background">#434343</color>
+    <color name="ItemSelectionFragment_background">#212121</color>
+    <color name="ItemSelectionFragment_HeaderLayout_background">#009688</color>
     <color name="ItemGold">#ffd700</color>
+    <color name="separator_border">#C8AA08</color>
+
+
+    <color name="gridView_bg">#434343</color><!--10514A-->
+
+
+    <color name="selector_list_item_child_pressed">#FFF7AC</color>
+    <color name="selector_list_item_group_pressed">#FFF7AC</color>
+    <color name="selector_list_item_child_unpressed">#4A4A4A</color><!--018F81-->
+    <color name="selector_list_item_group_unpressed">#4A4A4A</color><!--009688-->
+    <color name="list_item_child_text">#fff</color><!--009688-->
+    <color name="list_item_group_text">#fff</color><!--009688-->
 
 
 </resources>

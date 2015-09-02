@@ -8,12 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by sellersk on 8/31/2015.
  */
-public class ItemSelectionFragment extends Fragment {
+public class ItemSelectionFragment extends Fragment implements ExpandableItemTagAdapter.ExpandableListener {
     public static final String TAG = "ItemSelectionFragment";
 
     @Bind(R.id.gridView_items)
@@ -33,8 +30,8 @@ public class ItemSelectionFragment extends Fragment {
     @Bind(R.id.listView_itemFilter)
     ExpandableListView listView;
 
-    @Bind(R.id.textView_selectedItemDescription)
-    TextView textView_selectedItemDescription;
+/*    @Bind(R.id.textView_selectedItemDescription)
+    TextView textView_selectedItemDescription;*/
 
     @Bind(R.id.textView_selectedItem)
     TextView textView_selectedItem;
@@ -52,6 +49,7 @@ public class ItemSelectionFragment extends Fragment {
     private ArrayList<String> tags;
 
     private ItemGridAdapter itemGridAdapter;
+    private int lastExpandedPosition = -1;
 
 
     public ItemSelectionFragment() {
@@ -79,6 +77,11 @@ public class ItemSelectionFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onChildClick(int groupPos, int childPos) {
+        Log.d(TAG, "Child click in fragment");
+        highlightSelectedChild(groupPos, childPos);
+    }
 
     private void setupGridView(){
         enabledItems = User.get().getItems(getActivity());
@@ -89,12 +92,12 @@ public class ItemSelectionFragment extends Fragment {
 
         itemGridAdapter = new ItemGridAdapter(getActivity(), enabledItems);
         gridView.setAdapter(itemGridAdapter);
-        gridView.setNumColumns(4);
+        gridView.setNumColumns(3);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Item item = (Item)gridView.getAdapter().getItem(position);
+                Item item = (Item) gridView.getAdapter().getItem(position);
                 setSelectedItem(item);
             }
         });
@@ -127,24 +130,47 @@ public class ItemSelectionFragment extends Fragment {
         //listView.setAdapter(arrayAdapter);
 
 
-        ExpandableItemTagAdapter adapter = new ExpandableItemTagAdapter(getActivity(), tags, gridView);
+        ExpandableItemTagAdapter adapter = new ExpandableItemTagAdapter(getActivity(), this, tags, gridView);
         listView.setAdapter(adapter);
-        Log.d(TAG, "OnItemListClick!");
+        listView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedPosition != -1 && groupPosition != lastExpandedPosition) {
+                    listView.collapseGroup(lastExpandedPosition);
+                }
+                lastExpandedPosition = groupPosition;
+
+                itemGridAdapter.filterByTags((Tag) listView.getExpandableListAdapter().getGroup(groupPosition));
+                highlightSelectedGroup(groupPosition);
+                Log.d(TAG, "Group clicked");
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "OnItemListClick!");
+                Log.d(TAG, "click!! muhah");
             }
         });
         listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Log.d(TAG, "OnItemListClick!");
-                Tag tag = (Tag) listView.getExpandableListAdapter().getChild(groupPosition, childPosition);
-                itemGridAdapter.filterByTags(tag);
-                return true;
+                Log.d(TAG, "Childclick");
+
+                return false;
             }
         });
+
+    }
+
+    private void highlightSelectedChild(int groupPos, int childPos){
+        Log.d(TAG, "highlight selected click child :gr " + groupPos + " :ch " + childPos);
+        int index = listView.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPos, childPos));
+        listView.setItemChecked(index, true);
+    }
+
+    private void highlightSelectedGroup(int position){
+        int index = listView.getFlatListPosition(ExpandableListView.getPackedPositionForGroup(position));
+        listView.setItemChecked(index, true);
 
     }
 
@@ -152,7 +178,7 @@ public class ItemSelectionFragment extends Fragment {
         imageView_selectedItem.setImageDrawable(item.getDrawable());
         textView_selectedItem.setText(item.getName());
         textView_selectedItemGold.setText(String.valueOf(item.getBaseGold()));
-        textView_selectedItemDescription.setText(item.getDescription());
+        //textView_selectedItemDescription.setText(item.getDescription());
         textView_selectedItemId.setText(String.valueOf(item.getItemId()));
 
         final Item savedItem = item;

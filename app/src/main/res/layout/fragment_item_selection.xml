@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/relativeLayout_selectedItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="100dp"
+        android:layout_height="100dp"
         android:background="@color/ItemSelectionFragment_HeaderLayout_background"
-        android:gravity="center">
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/textView_selectedItemId"
@@ -23,43 +23,47 @@
             android:id="@+id/imageView_selectedItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@color/ItemSelectionFragment_background"/>
-
+            android:padding="8dp"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/textView_selectedItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Name"
+            android:textSize="16dp"
+            android:maxWidth="110dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorWhite"
+            />
         <TextView
             android:id="@+id/textView_selectedItemGold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/textView_selectedItem"
             android:textSize="16dp"
             android:textColor="@color/ItemGold"
             android:text="490g"
             />
 
-        <TextView
-            android:id="@+id/textView_selectedItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/imageView_selectedItem"
-            android:text="Item Name"
-            android:textSize="12dp"
-            android:textColor="@color/colorWhite"
-            android:layout_toLeftOf="@id/textView_selectedItemGold"
-            />
 
-        <TextView
+
+   <!--     <TextView
             android:id="@+id/textView_selectedItemDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_selectedItem"
-            android:layout_toRightOf="@id/imageView_selectedItem"
+            android:layout_toLeftOf="@id/imageView_selectedItem"
+            android:layout_toStartOf="@id/imageView_selectedItem"
             android:text="Example desciption..."
             android:textColor="@color/colorWhite"
             android:maxHeight="50dp"
             android:textSize="7dp"
-            />
+            />-->
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/separator_border" />
     <RelativeLayout
         android:id="@+id/relativeLayout_itemGrid"
         android:layout_width="match_parent"
@@ -68,14 +72,21 @@
 
         <ExpandableListView
             android:id="@+id/listView_itemFilter"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"/>
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:background="@color/selector_list_item_child_unpressed"
+            android:groupIndicator="@android:color/transparent"
+            />
 
         <GridView
             android:id="@+id/gridView_items"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/listView_itemFilter"/>
+            android:layout_toRightOf="@id/listView_itemFilter"
+            android:background="@color/gridView_bg"
+            android:padding="8dp"/>
+
 
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

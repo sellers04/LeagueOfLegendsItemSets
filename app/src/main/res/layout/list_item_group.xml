@@ -2,12 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="6dp"
+    android:background="@drawable/selector_list_item_group">
     <TextView
         android:id="@+id/textView_name"
         android:textStyle="bold"
-        android:textSize="16dp"
+        android:textSize="18dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/list_item_group_text"
         android:text="Group_Item"/>
 </LinearLayout>
